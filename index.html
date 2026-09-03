@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Learning Plan — MET Humber 2026–2029</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f0efec;
+      color: #1c1c1a;
+      padding: 28px 16px 60px;
+      max-width: 800px;
+      margin: 0 auto;
+      line-height: 1.5;
+    }
+
+    /* ── Header ── */
+    .plan-header { padding: 0 0 6px; }
+    .plan-header h2 { font-size: 17px; font-weight: 500; color: #1c1c1a; margin: 0 0 3px; }
+    .plan-header p  { font-size: 13px; color: #6b6b68; margin: 0 0 14px; }
+
+    /* ── Year labels ── */
+    .year-label {
+      font-size: 11px; font-weight: 500; letter-spacing: 0.06em;
+      text-transform: uppercase; color: #9b9b98;
+      margin: 22px 0 8px; padding-left: 2px;
+    }
+
+    /* ── Cards ── */
+    .card {
+      border: 1px solid #e2e2df; border-radius: 10px;
+      padding: 18px 18px 16px; margin-bottom: 14px;
+      background: #fafaf9;
+    }
+    .card-head { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+    .badge { font-size: 11px; font-weight: 500; padding: 3px 10px; border-radius: 20px; white-space: nowrap; flex-shrink: 0; }
+    .s0  .badge { background: #2C2C2A; color: #D3D1C7; }
+    .s1  .badge { background: #E6F1FB; color: #0C447C; }
+    .s2  .badge { background: #E1F5EE; color: #085041; }
+    .ss1 .badge { background: #F1EFE8; color: #5F5E5A; }
+    .s3  .badge { background: #EEEDFE; color: #3C3489; }
+    .s4  .badge { background: #FAEEDA; color: #633806; }
+    .ss2 .badge { background: #F1EFE8; color: #5F5E5A; }
+    .s5  .badge { background: #FAECE7; color: #712B13; }
+    .s6  .badge { background: #EAF3DE; color: #27500A; }
+    .card-title  { font-size: 14px; font-weight: 500; color: #1c1c1a; }
+    .card-season { font-size: 12px; color: #9b9b98; margin-left: auto; white-space: nowrap; }
+    .theme {
+      font-size: 12px; color: #6b6b68; margin-bottom: 12px;
+      padding-bottom: 10px; border-bottom: 1px solid #e2e2df;
+    }
+
+    /* ── Two-column skills / resources ── */
+    .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px; }
+    .col-label {
+      font-size: 10px; font-weight: 500; letter-spacing: 0.05em;
+      text-transform: uppercase; color: #9b9b98; margin-bottom: 7px;
+    }
+    .item { font-size: 12px; color: #1c1c1a; margin-bottom: 5px; display: flex; gap: 7px; line-height: 1.5; }
+    .dot { width: 5px; height: 5px; border-radius: 50%; margin-top: 5px; flex-shrink: 0; }
+    .s0  .dot { background: #888780; } .s1  .dot { background: #185FA5; }
+    .s2  .dot { background: #0F6E56; } .ss1 .dot { background: #888780; }
+    .s3  .dot { background: #534AB7; } .s4  .dot { background: #854F0B; }
+    .ss2 .dot { background: #888780; } .s5  .dot { background: #993C1D; }
+    .s6  .dot { background: #3B6D11; } .dot.hl { background: #534AB7; }
+
+    /* ── Timeline ── */
+    .timeline { padding-top: 12px; border-top: 1px solid #e2e2df; }
+    .tl-label {
+      font-size: 10px; font-weight: 500; letter-spacing: 0.05em;
+      text-transform: uppercase; color: #9b9b98;
+      margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center;
+    }
+    .tl-progress-text { font-size: 10px; color: #9b9b98; font-weight: 400; letter-spacing: 0; text-transform: none; }
+
+    /* Progress bar */
+    .prog-wrap { height: 3px; background: #e2e2df; border-radius: 2px; margin-bottom: 10px; }
+    .prog-fill  { height: 100%; border-radius: 2px; transition: width 0.3s ease; }
+    .s0  .prog-fill { background: #888780; } .s1  .prog-fill { background: #185FA5; }
+    .s2  .prog-fill { background: #0F6E56; } .ss1 .prog-fill { background: #888780; }
+    .s3  .prog-fill { background: #534AB7; } .s4  .prog-fill { background: #854F0B; }
+    .ss2 .prog-fill { background: #888780; } .s5  .prog-fill { background: #993C1D; }
+    .s6  .prog-fill { background: #3B6D11; }
+
+    .tl-row { display: flex; gap: 8px; margin-bottom: 8px; align-items: flex-start; }
+    .tl-week {
+      font-size: 11px; font-weight: 500; color: #9b9b98;
+      white-space: nowrap; width: 62px; flex-shrink: 0; padding-top: 3px;
+    }
+    .tl-content { font-size: 12px; color: #1c1c1a; line-height: 1.5; flex: 1; transition: opacity 0.2s; }
+    .tl-content.done { opacity: 0.35; text-decoration: line-through; }
+
+    /* Tags */
+    .tl-tag { display: inline-block; font-size: 10px; font-weight: 500; padding: 1px 7px; border-radius: 10px; margin-right: 5px; vertical-align: middle; }
+    .tag-new     { background: #EEEDFE; color: #3C3489; }
+    .tag-core    { background: #E6F1FB; color: #0C447C; }
+    .tag-project { background: #EAF3DE; color: #27500A; }
+    .tag-ml      { background: #E1F5EE; color: #085041; }
+    .tag-cv      { background: #FAEEDA; color: #633806; }
+    .tag-adv     { background: #FAECE7; color: #712B13; }
+    .tag-cap     { background: #EAF3DE; color: #173404; }
+
+    /* Project goal box */
+    .project-box {
+      margin-top: 14px; padding: 9px 12px; font-size: 12px; line-height: 1.5;
+      border-left: 3px solid; display: flex; gap: 10px; align-items: flex-start;
+    }
+    .s0  .project-box { background: #F1EFE8; color: #2C2C2A; border-color: #888780; }
+    .s1  .project-box { background: #E6F1FB; color: #042C53; border-color: #185FA5; }
+    .s2  .project-box { background: #E1F5EE; color: #04342C; border-color: #0F6E56; }
+    .ss1 .project-box { background: #F1EFE8; color: #2C2C2A; border-color: #888780; }
+    .s3  .project-box { background: #EEEDFE; color: #26215C; border-color: #534AB7; }
+    .s4  .project-box { background: #FAEEDA; color: #412402; border-color: #854F0B; }
+    .ss2 .project-box { background: #F1EFE8; color: #2C2C2A; border-color: #888780; }
+    .s5  .project-box { background: #FAECE7; color: #4A1B0C; border-color: #993C1D; }
+    .s6  .project-box { background: #EAF3DE; color: #173404; border-color: #3B6D11; }
+    .project-label { font-weight: 500; margin-bottom: 2px; }
+    .project-text.done { opacity: 0.35; text-decoration: line-through; }
+
+    /* ── Checkboxes ── */
+    .cb {
+      width: 15px; height: 15px; border-radius: 3px; border: 1.5px solid;
+      flex-shrink: 0; cursor: pointer; display: flex; align-items: center;
+      justify-content: center; margin-top: 1px; transition: all 0.15s;
+      user-select: none; opacity: 0.4;
+    }
+    .cb:hover { opacity: 0.7; transform: scale(1.08); }
+    .cb.checked { opacity: 1; }
+    .cb svg { display: none; width: 9px; height: 9px; }
+    .cb.checked svg { display: block; }
+
+    /* ── Top summary bar ── */
+    .top-summary {
+      background: #fafaf9; border: 1px solid #e2e2df; border-radius: 10px;
+      padding: 14px 16px; margin-bottom: 20px;
+    }
+    .top-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+    .top-label { font-size: 13px; font-weight: 500; color: #1c1c1a; }
+    .top-count { font-size: 12px; color: #6b6b68; }
+    .top-bar  { height: 5px; background: #e2e2df; border-radius: 3px; }
+    .top-fill { height: 100%; border-radius: 3px; background: #534AB7; transition: width 0.3s ease; }
+
+    /* ── Save indicator ── */
+    .save-toast {
+      position: fixed; bottom: 20px; right: 20px;
+      background: #1c1c1a; color: #fafaf9;
+      font-size: 12px; padding: 8px 14px; border-radius: 6px;
+      opacity: 0; transition: opacity 0.3s; pointer-events: none;
+    }
+    .save-toast.show { opacity: 1; }
+
+    @media (max-width: 520px) {
+      .cols { grid-template-columns: 1fr; }
+      .card-season { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="root"></div>
+<div class="save-toast" id="toast">✓ Progress saved</div>
+
+<script>
+const STORAGE_KEY = 'met-ai-plan-nikhil-v3';
+const COLORS = {
+  s0:'#888780', s1:'#185FA5', s2:'#0F6E56', ss1:'#888780',
+  s3:'#534AB7', s4:'#854F0B', ss2:'#888780', s5:'#993C1D', s6:'#3B6D11'
+};
+
+const PLAN = [
+  {
+    id:'s0', cls:'s0', badge:'Semester 0', title:'Launch pad', season:'Jul – Aug 2026 · 5 weeks',
+    theme:'Before MET begins — AI Fluency is complete, Google Colab + GitHub are set up. No further Semester 0 work.',
+    skills:[
+      {hl:true, t:'AI Fluency for Students (Anthropic) — completed'},
+      {t:'Google Colab + Git & GitHub basics — set up'},
+      {t:'Foundation for Python and engineering AI — deferred to Semester 1'}
+    ],
+    resources:[
+      {hl:true, t:'AI Fluency for Students — Anthropic Skilljar (free)'},
+      {t:'Google Colab — set up'},
+      {t:'GitHub — account and repository workflow set up'}
+    ],
+    weeks:[
+      {id:'s0w1', week:'Month 1', tag:'AI Fluency', tc:'tag-new', text:"Completed: finish Anthropic AI Fluency for Students and set up Google Colab + GitHub. Semester 0 stops here — Python and all remaining learning are moved into the later semesters."}
+    ],
+    pid:'s0p', plabel:'Goal by end of Semester 0',
+    project:"AI Fluency completed, Google Colab ready, and GitHub set up. Python fundamentals, ML intuition, neural-network material, and the first engineering project are intentionally deferred so Semester 0 stays realistic."
+  },
+  {
+    id:'s1', cls:'s1', badge:'Semester 1', title:'Data foundations', season:'Fall 2026 · Sep – Dec · 16 weeks',
+    theme:'MET courses: Technical math, engineering drawings, materials, technical communication — build Python competence alongside coursework.',
+    skills:[
+      {t:'Python — variables, functions, loops, strings, lists, dictionaries'},
+      {t:'Python — OOP, file I/O, error handling'},
+      {t:'NumPy, Pandas & Matplotlib — engineering data foundations'},
+      {t:'What ML actually is — supervised learning intuition before math'},
+      {t:'Claude as a study partner for MET coursework'}
+    ],
+    resources:[
+      {hl:true, t:'Crash Course on Python — Google, Coursera (paid)'},
+      {t:'Pandas docs + your own lab data'},
+      {t:'Khan Academy — linear algebra (vectors, matrices)'},
+      {t:'Kaggle "Intro to Machine Learning" — free'},
+      {t:'3Blue1Brown "Neural Networks" — YouTube (free)'}
+    ],
+    weeks:[
+      {id:'s1m1', week:'Month 1', tag:'Python', tc:'tag-core', text:'Crash Course on Python — variables, functions, loops, strings, lists, dictionaries. Do the practice exercises rather than merely watching.'},
+      {id:'s1m2', week:'Month 2', tag:'Python + Data', tc:'tag-core', text:'Finish Python fundamentals — OOP, file I/O, error handling — then learn NumPy arrays, indexing and math operations; begin Pandas DataFrames, CSVs, filtering and groupby.'},
+      {id:'s1m3', week:'Month 3', tag:'ML foundations', tc:'tag-ml', text:'Finish Pandas and Matplotlib — line plots, scatter plots, histograms — then learn what supervised learning actually is: decision trees, model validation, underfitting vs overfitting. Watch the 3Blue1Brown neural-networks playlist for intuition.'},
+      {id:'s1m4', week:'Month 4', tag:'Project', tc:'tag-project', text:'Learn vectors, dot products and matrices with Khan Academy. Build the materials-data project: a Python script that reads a materials-properties CSV, ranks strength-to-weight ratio, and visualizes stress/strain data with Matplotlib; push it to GitHub with a proper README.'}
+    ],
+    pid:'s1p', plabel:'Goal by end of Semester 1',
+    project:"A working Python foundation plus an engineering data project: load materials data, analyze and visualize it, rank materials by strength-to-weight ratio, and build toward automatic yield-point identification. Added to GitHub with a proper README."
+  },
+  {
+    id:'s2', cls:'s2', badge:'Semester 2', title:'Your first ML model', season:'Winter 2027 · Jan – Apr · 16 weeks',
+    theme:'MET courses: Solid mechanics, hydraulics & pneumatics, SolidWorks intro, CAD basics — turn the Semester 1 Python foundation into practical ML.',
+    skills:[
+      {t:'Scikit-learn — train/test split, fit, predict'},
+      {t:'Regression models — linear, polynomial'},
+      {t:'Model evaluation — MAE, RMSE, R², confusion matrix'},
+      {t:'Feature engineering basics'},
+      {t:'Kaggle + StatQuest for practical ML intuition'}
+    ],
+    resources:[
+      {t:'Kaggle "Intermediate ML" — free'},
+      {t:'Scikit-learn official tutorials'},
+      {t:'StatQuest — YouTube, ML fundamentals'}
+    ],
+    weeks:[
+      {id:'s2m1', week:'Month 1', tag:'Scikit-learn', tc:'tag-core', text:"Install scikit-learn, load datasets, perform train/test splits, and fit a linear regression — your first real ML model."},
+      {id:'s2m2', week:'Month 2', tag:'Evaluation', tc:'tag-ml', text:"Learn MAE, RMSE and R²; understand what model scores actually mean. Extend into polynomial regression and basic model evaluation, including when a model is underperforming."},
+      {id:'s2m3', week:'Month 3', tag:'Intermediate ML', tc:'tag-core', text:'Complete Kaggle Intermediate ML: missing values, categorical encoding, pipelines and cross-validation. Use StatQuest to strengthen regression, classification and bias-variance intuition.'},
+      {id:'s2m4', week:'Month 4', tag:'Project', tc:'tag-project', text:'Learn feature engineering — create useful columns, scale inputs and handle outliers. Build a hydraulic pressure-drop predictor using pipe diameter + flow rate; evaluate it with R² and RMSE and save the Colab notebook to GitHub.'}
+    ],
+    pid:'s2p', plabel:'Goal by end of Semester 2',
+    project:"A trained regression model that predicts hydraulic pressure drop from pipe geometry and flow rate. Evaluated with R² and RMSE and saved as a Colab notebook on GitHub. Your first real ML deliverable."
+  },
+  {
+    id:'ss1', cls:'ss1', badge:'Semester S1', title:'Consolidate & explore', season:'Summer 2027 · May – Aug · 16 weeks',
+    theme:'Lighter MET load — go deeper on ML, not wider. Use the breathing-room semester to consolidate practical modeling.',
+    skills:[
+      {t:'Classification — decision trees, random forests'},
+      {t:'Anomaly detection — isolation forest, z-score'},
+      {t:'Intro neural networks — Keras feedforward net'},
+      {t:'Kaggle competition workflow'}
+    ],
+    resources:[
+      {t:'Fast.ai "Practical Deep Learning" Lessons 1–3 (free)'},
+      {t:'Kaggle "Intro to Deep Learning" — free'},
+      {t:'Try one beginner Kaggle competition'}
+    ],
+    weeks:[
+      {id:'ss1m1', week:'Month 1', tag:'Classification', tc:'tag-ml', text:'Learn decision trees and random forests in scikit-learn — classification vs regression and when to use each.'},
+      {id:'ss1m2', week:'Month 2', tag:'Anomaly', tc:'tag-ml', text:'Learn isolation forest + z-score methods and use them to detect outliers in sensor data, a foundation for manufacturing AI.'},
+      {id:'ss1m3', week:'Month 3', tag:'Deep learning', tc:'tag-core', text:'Complete Fast.ai Lessons 1–3 and the Kaggle Intro to Deep Learning material. Build a simple feedforward neural network in Keras and understand layers, activation functions, loss and the training loop.'},
+      {id:'ss1m4', week:'Month 4', tag:'Project', tc:'tag-project', text:'Enter one beginner Kaggle competition (Titanic or House Prices), learn from other notebooks, then build a vibration anomaly detector that classifies normal vs abnormal machine operation and document precision/recall.'}
+    ],
+    pid:'ss1p', plabel:'Goal by end of Semester S1',
+    project:'A trained anomaly detection classifier on simulated vibration data. Includes a confusion matrix, precision/recall scores, and a clear README. Strong portfolio piece that previews predictive maintenance work in Semester 3.'
+  },
+  {
+    id:'s3', cls:'s3', badge:'Semester 3', title:'ML meets manufacturing', season:'Fall 2027 · Sep – Dec · 16 weeks',
+    theme:'MET courses: CNC programming, manufacturing processes, mechanical design, PLCs — connect ML to manufacturing data.',
+    skills:[
+      {t:'Predictive maintenance pipelines end-to-end'},
+      {t:'Time-series data handling with Pandas'},
+      {t:'Connecting Python to sensor/PLC-style CSV data'},
+      {t:'Intro to CNNs — image basics with Keras'}
+    ],
+    resources:[
+      {t:'Kaggle "Time Series" course — free'},
+      {t:'Andrew Ng Deep Learning Spec. Course 1 — audit free'},
+      {t:'NASA Bearing Dataset — free real-world data'}
+    ],
+    weeks:[
+      {id:'s3m1', week:'Month 1', tag:'Time series', tc:'tag-ml', text:'Complete the Kaggle Time Series course — lags, rolling averages and seasonality decomposition in Pandas.'},
+      {id:'s3m2', week:'Month 2', tag:'NASA data', tc:'tag-ml', text:'Load the NASA Bearing Dataset; explore, clean and engineer features from raw vibration signals. Practice connecting Python to sensor/PLC-style CSV data.'},
+      {id:'s3m3', week:'Month 3', tag:'Deep learning', tc:'tag-core', text:'Audit Andrew Ng Deep Learning Specialization Course 1 — forward propagation, backpropagation and gradient descent from scratch. Continue into Keras CNN basics: convolutional layers, pooling and what filters do visually.'},
+      {id:'s3m4', week:'Month 4', tag:'Project', tc:'tag-project', text:'Build the full predict → alert pipeline: sensor input → model → wear-threshold flag. Create a CNC tool-wear predictor that classifies tool condition from vibration features and flags replacement.'}
+    ],
+    pid:'s3p', plabel:'Goal by end of Semester 3',
+    project:'A predictive maintenance classifier trained on vibration time-series data. Flags tool wear before failure. Full pipeline from raw CSV to prediction output, directly tied to your CNC coursework.'
+  },
+  {
+    id:'s4', cls:'s4', badge:'Semester 4', title:'Computer vision for quality', season:'Winter 2028 · Jan – Apr · 16 weeks',
+    theme:'MET courses: Advanced CAD/SolidWorks, automation systems, robotics intro, quality control — build an automated visual inspection foundation.',
+    skills:[
+      {t:'OpenCV — image loading, filtering, edge detection'},
+      {t:'CNNs for image classification and defect detection'},
+      {t:'Transfer learning — fine-tune a pretrained model'},
+      {t:'Labeling and building your own image dataset'}
+    ],
+    resources:[
+      {t:'OpenCV Python tutorials — official docs'},
+      {t:'Roboflow — free tier for labeling + datasets'},
+      {t:'Fast.ai Lessons 4–6 — transfer learning'}
+    ],
+    weeks:[
+      {id:'s4m1', week:'Month 1', tag:'OpenCV', tc:'tag-cv', text:'Load images, resize, grayscale, apply filters and detect edges with Canny — establish image-manipulation basics.'},
+      {id:'s4m2', week:'Month 2', tag:'Dataset', tc:'tag-cv', text:"Label a small image dataset of scratches, cracks and clean surfaces using Roboflow's free labeling tool; understand dataset quality and class balance."},
+      {id:'s4m3', week:'Month 3', tag:'CNN + transfer', tc:'tag-core', text:'Train a CNN from scratch on your labeled dataset to understand overfitting with small data. Then complete Fast.ai Lessons 4–6 and fine-tune a pretrained ResNet with transfer learning.'},
+      {id:'s4m4', week:'Month 4', tag:'Project', tc:'tag-project', text:'Evaluate precision, recall and F1 rather than relying on accuracy alone. Build a transfer-learned surface-defect classifier for scratch / crack / clean parts and create an inference demo.'}
+    ],
+    pid:'s4p', plabel:'Goal by end of Semester 4',
+    project:'A transfer-learned CNN that classifies surface defects on machined parts. Labeled dataset, training notebook, F1 evaluation, and inference demo all on GitHub. Mirrors real automated optical inspection in automotive manufacturing.'
+  },
+  {
+    id:'ss2', cls:'ss2', badge:'Semester S2', title:'Generative tools & APIs', season:'Summer 2028 · May – Aug · 16 weeks',
+    theme:'Lighter MET load — get hands-on with AI APIs, generative design, and digital twins.',
+    skills:[
+      {t:'LLM APIs — Claude & OpenAI, prompt engineering'},
+      {t:'Generative design — Fusion 360 AI tools'},
+      {t:'Digital twin concepts and basic implementation'}
+    ],
+    resources:[
+      {t:'Anthropic API docs — docs.anthropic.com (free tier)'},
+      {t:'Autodesk Fusion 360 generative design tutorials'},
+      {t:'Papers With Code — browse manufacturing ML papers'}
+    ],
+    weeks:[
+      {id:'ss2m1', week:'Month 1', tag:'APIs', tc:'tag-new', text:'Learn Anthropic API basics — make your first API call, practice prompt engineering and produce structured JSON outputs.'},
+      {id:'ss2m2', week:'Month 2', tag:'API project', tc:'tag-new', text:'Build a Python tool that takes material properties as input and uses the Claude API to recommend material choices with reasoning.'},
+      {id:'ss2m3', week:'Month 3', tag:'Fusion 360', tc:'tag-cv', text:'Complete Autodesk generative design tutorials; run a bracket optimization and compare the AI-optimized result to a manual design. Also learn digital-twin concepts and how sensor data feeds a live model; explore one open-source example.'},
+      {id:'ss2m4', week:'Month 4', tag:'Project', tc:'tag-project', text:'Read two manufacturing ML papers on Papers With Code at a high level. Finish the connected deliverables: Fusion 360 optimized bracket + Python script generating an engineering tradeoff summary via API.'}
+    ],
+    pid:'ss2p', plabel:'Goal by end of Semester S2',
+    project:"Two connected artifacts: a Fusion 360 generative design study comparing AI-optimized vs manual bracket, and a Python script that calls the Claude API to generate an engineering tradeoff summary. Shows you can combine CAD AI with LLM AI."
+  },
+  {
+    id:'s5', cls:'s5', badge:'Semester 5', title:'AI for design & simulation', season:'Fall 2028 · Sep – Dec · 16 weeks',
+    theme:'MET courses: Advanced manufacturing, CAM/Mastercam, project engineering, energy systems — move from models to deployable engineering systems.',
+    skills:[
+      {t:'ML surrogate models replacing FEA simulation'},
+      {t:'Reinforcement learning — concepts + simple demo'},
+      {t:'MLflow — experiment tracking and versioning'},
+      {t:'End-to-end pipeline: data → train → evaluate → deploy'}
+    ],
+    resources:[
+      {t:'MLflow docs — free, open source'},
+      {t:'Hugging Face free courses — pipelines & deployment'},
+      {t:'DeepMind "Intro to RL" — YouTube'}
+    ],
+    weeks:[
+      {id:'s5m1', week:'Month 1', tag:'Surrogate ML', tc:'tag-adv', text:'Learn what surrogate models are and train a neural network to predict FEA output (von Mises stress) from load inputs.'},
+      {id:'s5m2', week:'Month 2', tag:'Surrogate', tc:'tag-adv', text:'Generate synthetic FEA training data, build and evaluate the surrogate, and compare the speed-versus-accuracy tradeoff against the underlying simulation.'},
+      {id:'s5m3', week:'Month 3', tag:'MLflow + RL', tc:'tag-ml', text:'Set up MLflow experiment tracking — log runs, compare models and version the best performer. Then study the DeepMind RL series: Q-learning concept and a simple GridWorld demo in Python; keep it conceptual rather than deep.'},
+      {id:'s5m4', week:'Month 4', tag:'Project', tc:'tag-project', text:'Use Hugging Face Spaces to deploy your defect classifier or surrogate model as a live web demo. Finish the FEA-surrogate pipeline from synthetic data generation → trained model → deployed Spaces demo.'}
+    ],
+    pid:'s5p', plabel:'Goal by end of Semester 5',
+    project:'A deployed ML surrogate that predicts von Mises stress on a bracket given load inputs — replacing a slow FEA run with a sub-second neural-net prediction. Live on Hugging Face Spaces and tracked in MLflow. Graduate-level engineering AI work.'
+  },
+  {
+    id:'s6', cls:'s6', badge:'Semester 6', title:'Capstone integration', season:'Winter 2029 · Jan – Apr · 16 weeks',
+    theme:'MET capstone: Industrial partner project — integrate AI into a real engineering deliverable and turn the accumulated work into a portfolio.',
+    skills:[
+      {t:'Embed AI component into capstone deliverable'},
+      {t:'Model monitoring & responsible deployment'},
+      {t:'AI ethics in engineering contexts'},
+      {t:'GitHub portfolio — clean READMEs, showcase page'}
+    ],
+    resources:[
+      {t:'GitHub Pages — free portfolio hosting'},
+      {t:'Hugging Face Spaces — live model demos'},
+      {t:'IEEE Engineering Ethics guidelines — free PDF'}
+    ],
+    weeks:[
+      {id:'s6m1', week:'Month 1', tag:'Capstone', tc:'tag-cap', text:'Identify where AI fits into your industrial partner project — predictive model, QC vision, generative design or surrogate — and scope it realistically.'},
+      {id:'s6m2', week:'Month 2', tag:'Build', tc:'tag-cap', text:'Build the AI component alongside your core MET deliverables. Keep it scoped and working over impressive and broken; begin documenting model behavior and limitations.'},
+      {id:'s6m3', week:'Month 3', tag:'Evaluate', tc:'tag-cap', text:'Evaluate and document the model — what it does, its accuracy, its limitations, monitoring considerations and how it fits the engineering context. Read IEEE AI ethics guidelines and write a one-page reflection.'},
+      {id:'s6m4', week:'Month 4', tag:'Portfolio', tc:'tag-project', text:'Create a GitHub Pages portfolio with one page per major project, descriptions, results and live-demo links. Finish the capstone submission and make the portfolio live.'}
+    ],
+    pid:'s6p', plabel:'Goal at graduation',
+    project:"An AI component embedded in your industrial capstone, a GitHub portfolio with 6+ projects spanning materials analysis, regression, anomaly detection, computer vision, generative design, and surrogate simulation — plus a live deployed model. That's what separates you from every other MET grad."
+  }
+];
+
+const YEAR_BEFORE = {
+  s0:  'Pre-program — Summer 2026',
+  s1:  'Year 1 — 2026–2027',
+  s3:  'Year 2 — 2027–2028',
+  s5:  'Year 3 — 2028–2029'
+};
+
+/* ── State ── */
+let checked = {};
+
+function migrateProgress() {
+  try {
+    const oldRaw = localStorage.getItem('met-ai-plan-nikhil-v2');
+    if (!oldRaw || localStorage.getItem(STORAGE_KEY)) return;
+    const old = JSON.parse(oldRaw);
+    // Preserve only Semester 0 Week 1, which is now Semester 0 Month 1.
+    if (old && old.s0w1) checked.s0w1 = true;
+  } catch(e) {}
+}
+
+function save() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(checked));
+    flashToast();
+  } catch(e) { console.warn('Save failed', e); }
+}
+
+function load() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) checked = JSON.parse(raw);
+  } catch(e) { checked = {}; }
+}
+
+/* ── Toast ── */
+let toastTimer;
+function flashToast() {
+  const t = document.getElementById('toast');
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 1800);
+}
+
+/* ── Toggle ── */
+function toggle(id) {
+  checked[id] = !checked[id];
+  save();
+  render();
+}
+
+/* ── Totals ── */
+function grandTotal() { return PLAN.reduce((a,s) => a + s.weeks.length + 1, 0); }
+function grandDone()  { return Object.values(checked).filter(Boolean).length; }
+
+/* ── Checkbox HTML ── */
+function cb(id, cls) {
+  const on  = !!checked[id];
+  const col = COLORS[cls];
+  return `<div class="cb${on?' checked':''}" onclick="toggle('${id}')"
+    style="border-color:${col};${on?'background:'+col+';':''}">
+    <svg viewBox="0 0 10 8" fill="none">
+      <path d="M1 4L3.5 6.5L9 1" stroke="white" stroke-width="1.8"
+            stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </div>`;
+}
+
+/* ── Render ── */
+function render() {
+  const tot  = grandTotal();
+  const done = grandDone();
+  const pct  = tot ? Math.round(done / tot * 100) : 0;
+
+  let h = `
+    <div class="plan-header">
+      <h2>AI learning plan — month-by-month</h2>
+      <p>9 periods · Mechanical Engineering Technology · Humber Polytechnic · 2026–2029</p>
+    </div>
+    <div class="top-summary">
+      <div class="top-row">
+        <span class="top-label">Overall progress</span>
+        <span class="top-count">${done} / ${tot} completed &middot; ${pct}%</span>
+      </div>
+      <div class="top-bar"><div class="top-fill" style="width:${pct}%"></div></div>
+    </div>`;
+
+  PLAN.forEach(s => {
+    if (YEAR_BEFORE[s.id]) {
+      h += `<div class="year-label">${YEAR_BEFORE[s.id]}</div>`;
+    }
+
+    const sDone  = s.weeks.filter(w => checked[w.id]).length + (checked[s.pid] ? 1 : 0);
+    const sTotal = s.weeks.length + 1;
+    const sPct   = Math.round(sDone / sTotal * 100);
+
+    h += `
+    <div class="card ${s.cls}">
+      <div class="card-head">
+        <span class="badge">${s.badge}</span>
+        <span class="card-title">${s.title}</span>
+        <span class="card-season">${s.season}</span>
+      </div>
+      <div class="theme">${s.theme}</div>
+      <div class="cols">
+        <div>
+          <div class="col-label">AI skills to build</div>
+          ${s.skills.map(x => `<div class="item"><span class="dot${x.hl?' hl':''}"></span>${x.t}</div>`).join('')}
+        </div>
+        <div>
+          <div class="col-label">Resources</div>
+          ${s.resources.map(x => `<div class="item"><span class="dot${x.hl?' hl':''}"></span>${x.t}</div>`).join('')}
+        </div>
+      </div>
+      <div class="timeline">
+        <div class="tl-label">
+          <span>Month by month</span>
+          <span class="tl-progress-text">${sDone} / ${sTotal} done</span>
+        </div>
+        <div class="prog-wrap"><div class="prog-fill" style="width:${sPct}%"></div></div>
+        ${s.weeks.map(w => `
+        <div class="tl-row">
+          ${cb(w.id, s.cls)}
+          <span class="tl-week">${w.week}</span>
+          <span class="tl-content${checked[w.id]?' done':''}"
+            ><span class="tl-tag ${w.tc}">${w.tag}</span>${w.text}</span>
+        </div>`).join('')}
+      </div>
+      <div class="project-box">
+        ${cb(s.pid, s.cls)}
+        <div>
+          <div class="project-label">${s.plabel}</div>
+          <div class="project-text${checked[s.pid]?' done':''}">${s.project}</div>
+        </div>
+      </div>
+    </div>`;
+  });
+
+  document.getElementById('root').innerHTML = h;
+}
+
+/* ── Init ── */
+migrateProgress();
+load();
+render();
+
+/* ── Also save on tab/window close as a safety net ── */
+window.addEventListener('beforeunload', () => {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(checked)); } catch(e) {}
+});
+</script>
+</body>
+</html>
