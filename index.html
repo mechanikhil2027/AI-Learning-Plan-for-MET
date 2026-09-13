@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI Learning Plan — MET Humber 2026–2029</title>
+  <title>Achary — AI Learning Plan</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
@@ -151,6 +151,17 @@
     }
     .save-toast.show { opacity: 1; }
 
+    /* ── Nav button (top-right) ── */
+    .nav-btn {
+      position: fixed; top: 16px; right: 16px; z-index: 100;
+      background: linear-gradient(135deg, #ec4899, #f97316);
+      color: #fafaf9; text-decoration: none;
+      font-size: 12px; font-weight: 500; padding: 8px 14px;
+      border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+      transition: opacity 0.15s;
+    }
+    .nav-btn:hover { opacity: 0.8; }
+
     @media (max-width: 520px) {
       .cols { grid-template-columns: 1fr; }
       .card-season { display: none; }
@@ -159,6 +170,7 @@
 </head>
 <body>
 
+<a class="nav-btn" href="https://achary.com/workout.html">Nikhil's Workout Set n' Rep Tracker</a>
 <div id="root"></div>
 <div class="save-toast" id="toast">✓ Progress saved</div>
 
@@ -453,7 +465,7 @@ function render() {
 
   let h = `
     <div class="plan-header">
-      <h2>AI learning plan — month-by-month</h2>
+      <h2>Achary — AI Learning Plan</h2>
       <p>9 periods · Mechanical Engineering Technology · Humber Polytechnic · 2026–2029</p>
     </div>
     <div class="top-summary">
